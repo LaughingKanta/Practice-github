@@ -24,7 +24,7 @@ def initilize():
     Fstart=80000#開始周波数
     FEnd=40000#終端周波数
     BatCallConstant=0.005#パラメータ
-    delay=0
+    delay=0 
     
     sig2=[0]*Boxnum
     crosscor=[0]*Boxnum
@@ -42,9 +42,6 @@ def makeFMsound(fStart,fEnd,BatCallConstant,amp,fs,dur):
     for i in range(nframes):
         t = float(i)/fs*100
         call.append(amp*np.sin(2.*pi*((fStart/(fStart-BatCallConstant*fEnd))*((fStart-fEnd)*np.float_power(arg, t)/math.log(arg)+(1-BatCallConstant)*fEnd*t))))
-    
-    print("nframeの個数は",nframes)
-
     return call
 #STFTグラフ表示
 def STFT(data,fs):
@@ -110,7 +107,7 @@ def plot_signal(fStart,fEnd,BatCallConstant,amp,fs,dur):
     ax3.set_title("a=0.020")
     fig.tight_layout()
     plt.savefig("plot_signal_10ms.png")
-"""
+
 def plot_signal(sig1,fs,dur):
     fig=plt.figure()
 
@@ -137,7 +134,7 @@ def plot_signal(sig1,fs,dur):
     ax3.set_ylim(30000,90000)
     fig.tight_layout()
     plt.savefig("plot_signal_10ms.png")
-"""
+
 #callの信号をFFT(complex)
 def call_FFT(sig1,Boxnum,fpgafreq,dur):
     sig1_1=[]
@@ -249,7 +246,7 @@ def plot_cross_funcpy(corr,fs,sig1_1,sig2):
 
 
 if __name__ == '__main__':
-    """
+   
     FStart,FEnd,BatCallConstant,amp,fr,fpgafreq,dur,Boxnum,delay,sig2,crosscor=initilize()
     sig1=makeFMsound( FStart,FEnd,BatCallConstant,amp,fpgafreq,dur)
     plot_signal(sig1,fpgafreq,dur)
@@ -259,11 +256,11 @@ if __name__ == '__main__':
     CrossCor,time=calculateEnvelope(mix_FT,hil_FT,Boxnum,fpgafreq)
     plot_cross(CrossCor,time,fpgafreq,sig1_1,sig2)
     #plot_cross_only(CrossCor)
-   """
-    
+   
+    """
     FStart,FEnd,BatCallConstant,amp,fr,fpgafreq,dur,Boxnum,delay,sig2,crosscor=initilize()
     plot_signal(FStart,FEnd,BatCallConstant,amp,fpgafreq,dur)
-    """  
+      
      for BatCallConstant in range(5,25,5):
          sig1=makeFMsound( FStart,FEnd,BatCallConstant*0.01,amp,fpgafreq,dur)
          call_data,call_fre,sig1_1=call_FFT(sig1,Boxnum,fpgafreq,dur)
